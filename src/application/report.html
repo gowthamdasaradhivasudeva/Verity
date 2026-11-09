@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verity | Forensic Academic Integrity Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="/report.css">
+
+    <!-- Auth Guard & Theme Pre-init -->
+    <script>
+        (function() {
+            // Guard against unauthorized direct visits
+            if (!sessionStorage.getItem("verityUser")) {
+                window.location.replace("/login");
+                return;
+            }
+            const theme = localStorage.getItem("verityTheme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+
+<body class="report-page">
+    <main class="report-container">
+
+        <!-- 1. REPORT HEADER -->
+        <header class="report-header">
+            <div class="report-header-top">
+                <div class="report-brand-lockup">
+                    <div class="report-brand-mark" aria-hidden="true">
+                        <svg viewBox="0 0 32 32" fill="none" class="brand-svg">
+                            <path d="M6 8L16 26L26 8" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8L16 16L20 8" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+                            <circle cx="16" cy="18" r="2.2" fill="#2dd4bf"/>
+                        </svg>
+                    </div>
+                    <span class="report-brand">VERITY EXAM INTELLIGENCE · FORENSIC SIMILARITY REPORT</span>
+                </div>
+
+                <div class="report-header-actions no-print">
+                    <button type="button" class="report-theme-btn" id="reportThemeToggle" aria-label="Toggle theme" title="Toggle theme">
+                        <svg class="sun-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <circle cx="10" cy="10" r="4"/>
+                            <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42"/>
+                        </svg>
+                        <svg class="moon-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                    <button class="report-back-button" id="backToWorkspace">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                            <path d="M14 8H2M7 3L2 8l5 5"/>
+                        </svg>
+                        <span>Back to Verity Workspace</span>
+                    </button>
+                    <button class="report-print-button" onclick="window.print()">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                            <path d="M4 5V2h8v3M4 12v2h8v-2M2 5h12a1 1 0 011 1v5a1 1 0 01-1 1h-2V9H4v3H2a1 1 0 01-1-1V6a1 1 0 011-1z"/>
+                        </svg>
+                        <span>Print Forensic Audit Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="report-title-area">
+                <div class="report-chip-row">
+                    <span class="report-status-chip">OFFICIAL EXAMINATION AUDIT</span>
+                    <span class="report-security-chip">CONFIDENTIAL · EXAMINER USE ONLY</span>
+                </div>
+                <h1>Academic Integrity Comparison Analysis</h1>
+                <p class="report-subtitle">
+                    Pairwise Forensic Malpractice Assessment · Lexical Cosine, Sentence Matching, and N-Gram Verification
+                </p>
+            </div>
+
+            <div class="report-metadata">
+                <div class="meta-item">
+                    <span class="meta-label">Analysis ID</span>
+                    <strong id="analysisId">Pending</strong>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Timestamp</span>
+                    <strong id="generatedDate">Pending</strong>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Paper A Record</span>
+                    <strong id="paperAMetadata">Answer Sheet A</strong>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Paper B Record</span>
+                    <strong id="paperBMetadata">Answer Sheet B</strong>
+                </div>
+            </div>
+        </header>
+
+        <!-- 2. STUDENT COMPARISON -->
+        <section class="student-comparison-card">
+            <article class="student-card student-a">
+                <div class="student-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="student-details">
+                    <div class="student-tag">CANDIDATE A</div>
+                    <h3 id="studentAFile">Answer Sheet A</h3>
+                    <div class="student-submeta">
+                        <span class="student-word-count"><strong id="studentAWordCount">0</strong> Words</span>
+                        <span class="student-roll-id" id="studentARoll" hidden>Not provided</span>
+                    </div>
+                </div>
+            </article>
+
+            <div class="student-vs" aria-label="versus">VS</div>
+
+            <article class="student-card student-b">
+                <div class="student-avatar" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="student-details">
+                    <div class="student-tag tag-b">CANDIDATE B</div>
+                    <h3 id="studentBFile">Answer Sheet B</h3>
+                    <div class="student-submeta">
+                        <span class="student-word-count"><strong id="studentBWordCount">0</strong> Words</span>
+                        <span class="student-roll-id" id="studentBRoll" hidden>Not provided</span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- 3. OVERALL SIMILARITY SCORE & GAUGE -->
+        <section class="similarity-score-section">
+            <div class="similarity-score-heading">
+                <div class="score-heading-left">
+                    <span class="section-badge">FORENSIC GAUGE</span>
+                    <h2>Overall Paper Similarity</h2>
+                    <p>Calculated lexical correlation based on extracted answers, excluding exam question lines.</p>
+                </div>
+            </div>
+
+            <div class="similarity-gauge-container">
+                <div class="similarity-gauge" id="similarityGauge">
+                    <div class="gauge-stage">
+                        <svg id="gaugeSvg" viewBox="0 0 340 210" role="img" aria-label="Overall similarity gauge">
+                            <g id="gaugeTracks"></g>
+                            <g id="gaugeFills"></g>
+                            <g id="gaugeTicks"></g>
+                            <circle id="gaugeKnob" r="11" cx="52" cy="170"></circle>
+                        </svg>
+                        <div class="gauge-center">
+                            <span id="reportSimilarityScore">--%</span>
+                            <small>OVERALL SIMILARITY</small>
+                        </div>
+                    </div>
+                    <div class="gauge-legend">
+                        <span><i class="lg-low"></i>Low: under 50%</span>
+                        <span><i class="lg-mid"></i>Moderate: 50% up to 80%</span>
+                        <span><i class="lg-high"></i>High: 80% and above</span>
+                    </div>
+                </div>
+
+                <div class="similarity-score-description">
+                    <div class="assessment-card">
+                        <span class="assessment-eyebrow">AUTOMATED CLASSIFICATION</span>
+                        <h3 id="similarityStatus">Analysis Result</h3>
+                        <p id="similarityExplanation">Overall textual similarity between the two answer papers.</p>
+                        <div class="assessment-footer-note">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="note-icon">
+                                <circle cx="8" cy="8" r="6"/>
+                                <path d="M8 5v3M8 11h.01"/>
+                            </svg>
+                            <span>Evaluated using TF-IDF vectorization with cosine distance.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. FULL DOCUMENT COMPARISON -->
+        <section class="document-comparison-section">
+            <div class="comparison-heading">
+                <div>
+                    <span class="section-badge">VERBATIM PHRASE HIGHLIGHTING</span>
+                    <h2>Full Document Comparison</h2>
+                    <p>Exact consecutive word runs (4 or more words) shared by both papers are highlighted in yellow.</p>
+                </div>
+                <span class="comparison-badge">VERBATIM RUNS HIGHLIGHTED</span>
+            </div>
+
+            <div class="comparison-columns">
+                <div class="comparison-column col-a">
+                    <div class="col-header">
+                        <div class="col-indicator-a"></div>
+                        <h3>ANSWER SHEET A</h3>
+                        <span class="col-badge">Candidate Script A</span>
+                    </div>
+                    <div class="document-text" id="documentTextA"></div>
+                </div>
+
+                <div class="comparison-column col-b">
+                    <div class="col-header">
+                        <div class="col-indicator-b"></div>
+                        <h3>ANSWER SHEET B</h3>
+                        <span class="col-badge">Candidate Script B</span>
+                    </div>
+                    <div class="document-text" id="documentTextB"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5 & 6. SIMILARITY ANALYSIS + DECISION (COMBINED DARK CARD) -->
+        <section class="analysis-overview">
+            <div class="analysis-combined-card">
+                <div class="analysis-left">
+                    <div class="card-eyebrow-dark">PRIMARY DETERMINATION</div>
+                    <h2>Overall Similarity Score</h2>
+
+                    <div class="overall-score-row">
+                        <div class="overall-score" id="overallScoreValue">—</div>
+                    </div>
+
+                    <div class="progress-track" title="Similarity magnitude progress">
+                        <div class="progress-fill" id="overallProgress"></div>
+                    </div>
+
+                    <div class="decision-details">
+                        <h3>Examiner Action Decision</h3>
+                        <p id="finalDecision">Awaiting analysis</p>
+                        <small>Classification thresholds: &ge;80% Likely Malpractice, 50%–79% Human Review Required, &lt;50% Not Likely Malpractice.</small>
+                    </div>
+                </div>
+
+                <div class="analysis-right">
+                    <div class="card-eyebrow-dark">MULTI-FACTOR NLP METRICS</div>
+                    <h2>Similarity Breakdown</h2>
+
+                    <div class="metric-row">
+                        <div class="metric-header-row">
+                            <span class="metric-title">Cosine Similarity (TF-IDF)</span>
+                            <strong id="cosineValue" class="metric-val">—</strong>
+                        </div>
+                        <div class="metric-track">
+                            <div id="cosineBar" class="metric-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-row">
+                        <div class="metric-header-row">
+                            <span class="metric-title">N-gram Overlap (Trigram)</span>
+                            <strong id="ngramValue" class="metric-val">—</strong>
+                        </div>
+                        <div class="metric-track">
+                            <div id="ngramBar" class="metric-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="metric-row">
+                        <div class="metric-header-row">
+                            <span class="metric-title">Phrase Matching (Copied Text)</span>
+                            <strong id="phraseValue" class="metric-val">—</strong>
+                        </div>
+                        <div class="metric-track">
+                            <div id="phraseBar" class="metric-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. REVIEW SIGN-OFF -->
+        <section class="signoff-section">
+            <div class="signoff-header">
+                <h2>Examiner Review &amp; Sign-off</h2>
+                <span class="signoff-note">Record official qualitative findings and institutional endorsement.</span>
+            </div>
+
+            <div class="signoff-remarks">
+                <label for="examinerRemarks">Examiner Remarks &amp; Observations</label>
+                <textarea id="examinerRemarks" class="signoff-input remarks-input" placeholder="Enter findings, physical exam hall observations, or disciplinary committee recommendations (optional)..."></textarea>
+            </div>
+
+            <div class="signoff-grid">
+                <div class="signoff-field">
+                    <label for="examinerName">Examiner Name</label>
+                    <input id="examinerName" class="signoff-input" type="text" placeholder="Dr. / Prof. Examiner Name">
+                </div>
+                <div class="signoff-field">
+                    <label for="examinerDate">Date of Determination</label>
+                    <input id="examinerDate" class="signoff-input" type="date">
+                </div>
+                <div class="signoff-field">
+                    <div class="sign-line"></div>
+                    <label>Examiner Signature</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- DISCLAIMER FOOTER -->
+        <footer class="report-footer-disclaimer">
+            <div class="disclaimer-badge">STATUTORY FORENSIC ADVISORY</div>
+            <p>
+                <strong>Disclaimer:</strong> This report identifies similarities that may indicate possible malpractice. A high score does not prove cheating. Final decisions must be made by a human examiner after reviewing the evidence.
+            </p>
+        </footer>
+
+    </main>
+
+    <script src="/report.js"></script>
+    <script>
+        // Synchronize examiner details and date
+        (function() {
+            const reportThemeToggle = document.getElementById("reportThemeToggle");
+            reportThemeToggle?.addEventListener("click", () => {
+                const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", nextTheme);
+                localStorage.setItem("verityTheme", nextTheme);
+            });
+
+            // Set today's date if empty
+            const dateInput = document.getElementById("examinerDate");
+            if (dateInput && !dateInput.value) {
+                dateInput.value = new Date().toISOString().split("T")[0];
+            }
+
+            // Populate examiner name from logged-in session if empty
+            const nameInput = document.getElementById("examinerName");
+            if (nameInput && !nameInput.value) {
+                try {
+                    const user = JSON.parse(sessionStorage.getItem("verityUser") || "null");
+                    if (user && user.name) {
+                        nameInput.value = user.name;
+                    }
+                } catch(e) {}
+            }
+        })();
+    </script>
+</body>
+</html>

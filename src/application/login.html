@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verity | Examiner Access & Authentication</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        (function() {
+            const theme = localStorage.getItem("verityTheme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+<body class="auth-page">
+    <div class="auth-layout">
+        <!-- BRAND SHOWCASE PANEL -->
+        <aside class="auth-brand-panel">
+            <div class="brand-panel-grid-overlay"></div>
+            <div class="brand-panel-content">
+                <header class="brand-panel-header">
+                    <div class="brand-mark-lg" aria-hidden="true">
+                        <svg viewBox="0 0 32 32" fill="none" class="brand-svg">
+                            <path d="M6 8L16 26L26 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 8L16 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                            <circle cx="16" cy="18" r="2.5" fill="var(--teal)"/>
+                        </svg>
+                    </div>
+                    <div class="brand-text">
+                        <strong>VERITY</strong>
+                        <span>EXAM INTELLIGENCE · FORENSICS</span>
+                    </div>
+                </header>
+
+                <div class="brand-panel-hero">
+                    <div class="hero-badge">
+                        <span class="pulse-indicator"></span>
+                        Deterministic Malpractice Detection
+                    </div>
+                    <h1>Pairwise Forensic Academic Integrity Assessment</h1>
+                    <p class="hero-description">
+                        An enterprise-grade forensic engine designed for university exam boards and test authorities to evaluate candidate answer scripts with mathematical precision.
+                    </p>
+                </div>
+
+                <div class="brand-trust-grid">
+                    <div class="trust-card">
+                        <div class="trust-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75">
+                                <path d="M3 5h14M3 10h14M3 15h8" stroke-linecap="round"/>
+                                <circle cx="15" cy="15" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Lexical &amp; Trigram N-Gram Models</h4>
+                            <p>Computes TF-IDF cosine similarity, n-gram overlapping ratios, and exact 4-word verbatim runs.</p>
+                        </div>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75">
+                                <rect x="3" y="3" width="14" height="14" rx="3" stroke-linecap="round"/>
+                                <path d="M7 8h6M7 12h4" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Smart Prompt Filtering</h4>
+                            <p>Excludes standardized question titles from comparison, eliminating false positives from shared prompts.</p>
+                        </div>
+                    </div>
+
+                    <div class="trust-card">
+                        <div class="trust-icon" aria-hidden="true">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75">
+                                <path d="M10 2l6 3.5v5c0 4.5-3 8-6 9.5-3-1.5-6-5-6-9.5v-5L10 2z" stroke-linejoin="round"/>
+                                <path d="M8 10l1.5 1.5 3-3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Auditable Examiner Sign-off</h4>
+                            <p>Standardized forensic reports with tamper-evident analysis IDs and physical signature workflows.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <footer class="brand-panel-footer">
+                    <span>Verity Platform v2.4</span>
+                    <span class="separator">·</span>
+                    <span>Local Air-Gapped Processing</span>
+                    <span class="separator">·</span>
+                    <span>No Third-Party AI Retention</span>
+                </footer>
+            </div>
+        </aside>
+
+        <!-- AUTHENTICATION FORM PANEL -->
+        <main class="auth-form-panel">
+            <div class="auth-top-toolbar">
+                <button type="button" class="theme-toggle-btn" id="themeToggle" aria-label="Toggle visual theme" title="Toggle dark/light theme">
+                    <svg class="sun-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="10" cy="10" r="4"/>
+                        <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="auth-form-container">
+                <div class="auth-card">
+                    <div class="auth-card-header">
+                        <div class="auth-mobile-brand">
+                            <span class="brand-mark-sm">V</span>
+                            <strong>VERITY</strong>
+                        </div>
+                        <span class="auth-badge">EXAMINER PORTAL</span>
+                        <h2>Examiner Sign In</h2>
+                        <p>Authenticate with your institution credentials to access the forensic analysis workspace.</p>
+                    </div>
+
+                    <!-- Fast Demo Auto-fill Helper -->
+                    <div class="demo-account-hint" id="demoAccountHint">
+                        <div class="demo-hint-content">
+                            <span class="demo-tag">Quick Demo</span>
+                            <span>Click to populate sample credentials: <code>examiner@verity.ac.uk</code></span>
+                        </div>
+                        <button type="button" class="demo-fill-btn" id="demoFillBtn">Fill</button>
+                    </div>
+
+                    <!-- Notification / Error Box -->
+                    <div id="loginAlert" class="auth-alert" hidden role="alert">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" class="alert-icon">
+                            <circle cx="10" cy="10" r="8"/>
+                            <path d="M10 6v5M10 14h.01" stroke-linecap="round"/>
+                        </svg>
+                        <span id="loginAlertText"></span>
+                    </div>
+
+                    <!-- UI placeholder for real authentication later -->
+                    <form id="loginForm" class="auth-form" novalidate>
+                        <div class="form-group">
+                            <label for="loginEmail">Examiner ID or Institutional Email</label>
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <rect x="3" y="4" width="14" height="12" rx="2"/>
+                                        <path d="M3 7l7 5 7-5"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="email" 
+                                    id="loginEmail" 
+                                    name="email" 
+                                    placeholder="examiner@university.edu" 
+                                    required 
+                                    autocomplete="username"
+                                    spellcheck="false"
+                                >
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-with-action">
+                                <label for="loginPassword">Password</label>
+                                <span class="input-hint">Default: <code>verity2026</code></span>
+                            </div>
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <rect x="4" y="9" width="12" height="8" rx="2"/>
+                                        <path d="M7 9V6a3 3 0 016 0v3"/>
+                                    </svg>
+                                </span>
+                                <input 
+                                    type="password" 
+                                    id="loginPassword" 
+                                    name="password" 
+                                    placeholder="••••••••••••" 
+                                    required 
+                                    autocomplete="current-password"
+                                >
+                                <button type="button" class="pwd-toggle-btn" id="togglePasswordBtn" aria-label="Show password" title="Show or hide password">
+                                    <svg class="eye-show" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z"/>
+                                        <circle cx="10" cy="10" r="3"/>
+                                    </svg>
+                                    <svg class="eye-hide" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                        <path d="M3 3l14 14M10 5c3.5 0 6.5 2.5 8 5-.6 1-1.4 2-2.3 2.8M6.5 6.6C5 7.6 3.8 9 3 10c1.5 2.5 4.5 5 7 5 1.4 0 2.8-.5 4-1.3"/>
+                                        <circle cx="10" cy="10" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-options">
+                            <label class="remember-checkbox">
+                                <input type="checkbox" id="rememberMe">
+                                <span class="custom-check"></span>
+                                <span>Remember this examiner workstation</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="primary-button auth-submit-btn" id="loginSubmitBtn">
+                            <span class="btn-text">Sign In to Forensic Workspace</span>
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-arrow" aria-hidden="true">
+                                <path d="M4 10h12M11 5l5 5-5 5"/>
+                            </svg>
+                        </button>
+                    </form>
+
+                    <div class="auth-security-footer">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" class="lock-icon" aria-hidden="true">
+                            <path d="M5 8V6a5 5 0 0110 0v2"/>
+                            <rect x="3" y="8" width="14" height="10" rx="2"/>
+                            <circle cx="10" cy="13" r="1.5"/>
+                        </svg>
+                        <span>Encrypted session · Audit trails recorded in forensic log</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // ============================================================
+        // VERITY AUTHENTICATION
+        // Client-side demo authentication storage
+        // (To be replaced by real server-side authentication later)
+        // ============================================================
+        (function() {
+            "use strict";
+
+            const loginForm = document.getElementById("loginForm");
+            const loginEmail = document.getElementById("loginEmail");
+            const loginPassword = document.getElementById("loginPassword");
+            const rememberMe = document.getElementById("rememberMe");
+            const loginSubmitBtn = document.getElementById("loginSubmitBtn");
+            const loginAlert = document.getElementById("loginAlert");
+            const loginAlertText = document.getElementById("loginAlertText");
+            const togglePasswordBtn = document.getElementById("togglePasswordBtn");
+            const demoFillBtn = document.getElementById("demoFillBtn");
+            const firstTimeHint = document.getElementById("firstTimeHint");
+            const themeToggle = document.getElementById("themeToggle");
+
+            // Theme toggle behavior
+            function initTheme() {
+                themeToggle?.addEventListener("click", () => {
+                    const nextTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+                    document.documentElement.setAttribute("data-theme", nextTheme);
+                    localStorage.setItem("verityTheme", nextTheme);
+                });
+            }
+            initTheme();
+
+            // Password visibility toggle
+            togglePasswordBtn?.addEventListener("click", () => {
+                const isPassword = loginPassword.type === "password";
+                loginPassword.type = isPassword ? "text" : "password";
+                togglePasswordBtn.classList.toggle("is-showing", isPassword);
+            });
+
+            // ============================================================
+            // Client-side demo authentication storage in localStorage key "verityAccounts"
+            // (To be replaced by real server-side authentication later)
+            // ============================================================
+            // Password hashing using Web Crypto SHA-256
+            async function hashPassword(salt, password) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(salt + password);
+                const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+            }
+
+            function getAccounts() {
+                try {
+                    return JSON.parse(localStorage.getItem("verityAccounts") || "{}");
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function isValidEduEmail(str) {
+                if (!str || typeof str !== "string") return false;
+                const trimmed = str.trim().toLowerCase();
+                if (trimmed === "examiner@verity.ac.uk") return true;
+                const atIndex = trimmed.indexOf("@");
+                if (atIndex <= 0 || atIndex !== trimmed.lastIndexOf("@")) return false;
+                const local = trimmed.slice(0, atIndex);
+                const domain = trimmed.slice(atIndex + 1);
+                if (!local || !domain) return false;
+                if (!domain.toLowerCase().endsWith(".edu")) return false;
+                const domainParts = domain.split(".");
+                if (domainParts.length < 2) return false;
+                if (domainParts.some(p => !p.trim())) return false;
+                return true;
+            }
+
+            function updateFirstTimeHint() {
+                if (!firstTimeHint) return;
+                const email = loginEmail.value.trim().toLowerCase();
+                const accounts = getAccounts();
+                if (isValidEduEmail(email) && !accounts[email]) {
+                    firstTimeHint.hidden = false;
+                } else {
+                    firstTimeHint.hidden = true;
+                }
+            }
+
+            // Lockout management (5 failed attempts -> 60s lockout with countdown)
+            const LOCK_STORAGE_KEY = "verityLoginLock";
+            let countdownTimer = null;
+
+            function getLockState() {
+                try {
+                    return JSON.parse(localStorage.getItem(LOCK_STORAGE_KEY) || '{"failedAttempts":0,"lockedUntil":0}');
+                } catch (e) {
+                    return { failedAttempts: 0, lockedUntil: 0 };
+                }
+            }
+
+            function saveLockState(state) {
+                localStorage.setItem(LOCK_STORAGE_KEY, JSON.stringify(state));
+            }
+
+            function applyLockState() {
+                const state = getLockState();
+                const now = Date.now();
+                if (state.lockedUntil && state.lockedUntil > now) {
+                    setLocked(true);
+                    renderCountdown();
+                    if (!countdownTimer) {
+                        countdownTimer = setInterval(renderCountdown, 1000);
+                    }
+                    return true;
+                } else {
+                    if (state.lockedUntil && state.lockedUntil <= now) {
+                        saveLockState({ failedAttempts: 0, lockedUntil: 0 });
+                    }
+                    setLocked(false);
+                    if (countdownTimer) {
+                        clearInterval(countdownTimer);
+                        countdownTimer = null;
+                    }
+                    return false;
+                }
+            }
+
+            function renderCountdown() {
+                const state = getLockState();
+                const remaining = Math.max(0, Math.ceil((state.lockedUntil - Date.now()) / 1000));
+                if (remaining > 0) {
+                    showAlert(`Form locked due to 5 failed attempts. Please wait ${remaining}s.`);
+                } else {
+                    applyLockState();
+                    hideAlert();
+                }
+            }
+
+            function setLocked(locked) {
+                loginSubmitBtn.disabled = locked;
+                loginEmail.disabled = locked;
+                loginPassword.disabled = locked;
+                if (rememberMe) rememberMe.disabled = locked;
+            }
+
+            function showAlert(message) {
+                if (!loginAlert || !loginAlertText) return;
+                loginAlertText.textContent = message;
+                loginAlert.hidden = false;
+            }
+
+            function hideAlert() {
+                if (loginAlert) loginAlert.hidden = true;
+            }
+
+            // Pre-fill remembered email
+            const rememberedEmail = localStorage.getItem("verityRememberedEmail");
+            if (rememberedEmail) {
+                loginEmail.value = rememberedEmail;
+                rememberMe.checked = true;
+            }
+
+            // Quick demo fill button
+            demoFillBtn?.addEventListener("click", () => {
+                loginEmail.value = "examiner@verity.ac.uk";
+                loginPassword.value = "verity2026";
+                loginPassword.focus();
+                hideAlert();
+            });
+
+            loginEmail?.addEventListener("input", () => {
+                const state = getLockState();
+                if (!(state.lockedUntil && state.lockedUntil > Date.now())) {
+                    hideAlert();
+                }
+                updateFirstTimeHint();
+            });
+
+            loginPassword?.addEventListener("input", () => {
+                const state = getLockState();
+                if (!(state.lockedUntil && state.lockedUntil > Date.now())) {
+                    hideAlert();
+                }
+            });
+
+            updateFirstTimeHint();
+            applyLockState();
+
+            // Form submission
+            loginForm?.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                if (applyLockState()) return;
+
+                const rawEmail = loginEmail.value.trim();
+                const password = loginPassword.value;
+
+                // 1. Email format check
+                if (!isValidEduEmail(rawEmail)) {
+                    showAlert("Use your institutional email ending in .edu");
+                    loginEmail.focus();
+                    return;
+                }
+
+                const emailLower = rawEmail.toLowerCase();
+                const accounts = getAccounts();
+                const account = accounts[emailLower];
+
+                // 2. Password check
+                let isValidPassword = false;
+
+                if (!account) {
+                    // First-time user: password must be exactly verity2026
+                    isValidPassword = (password === "verity2026");
+                } else {
+                    // Existing custom password
+                    const computedHash = await hashPassword(account.salt, password);
+                    isValidPassword = (computedHash === account.passwordHash);
+                }
+
+                if (!isValidPassword) {
+                    const state = getLockState();
+                    state.failedAttempts = (state.failedAttempts || 0) + 1;
+                    if (state.failedAttempts >= 5) {
+                        state.lockedUntil = Date.now() + 60000;
+                        saveLockState(state);
+                        applyLockState();
+                    } else {
+                        saveLockState(state);
+                        showAlert("Invalid email or password");
+                        loginPassword.value = "";
+                        loginPassword.focus();
+                    }
+                    return;
+                }
+
+                // Authentication succeeded
+                saveLockState({ failedAttempts: 0, lockedUntil: 0 });
+
+                loginSubmitBtn.classList.add("is-loading");
+                loginSubmitBtn.disabled = true;
+
+                if (rememberMe.checked) {
+                    localStorage.setItem("verityRememberedEmail", rawEmail);
+                } else {
+                    localStorage.removeItem("verityRememberedEmail");
+                }
+
+                setTimeout(() => {
+                    const localPart = emailLower.split("@")[0];
+                    const displayName = localPart
+                        .replace(/[._]/g, " ")
+                        .replace(/\b\w/g, c => c.toUpperCase());
+
+                    const userData = {
+                        email: emailLower,
+                        name: displayName,
+                        role: "Lead Examiner",
+                        signedInAt: new Date().toISOString()
+                    };
+
+                    sessionStorage.setItem("verityUser", JSON.stringify(userData));
+                    window.location.replace("/upload");
+                }, 350);
+            });
+        })();
+    </script>
+</body>
+</html>

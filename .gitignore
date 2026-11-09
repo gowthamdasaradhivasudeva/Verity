@@ -1,0 +1,39 @@
+
+# Python virtual environments
+venv/
+.venv/
+paddle_test/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment variables and secrets
+.env
+
+# Private OCR data
+Module_1/OCR/output/
+
+# Generated OCR output
+outputs/extracted_text/*
+outputs/processed_text/*
+outputs/similarity_results/*
+outputs/test_lines/*
+
+# Generated similarity reports
+module_2/similarity/outputs/
+
+# Keep required empty folder structure
+!outputs/extracted_text/.gitkeep
+
+# Generated temporary images
+# Local uploads and temporary files
+uploads/*
+!uploads/.gitkeep
+
+# Editor settings
+.vscode/
+
+# Python test/cache files
+.pytest_cache/
+src/similarity/outputs/

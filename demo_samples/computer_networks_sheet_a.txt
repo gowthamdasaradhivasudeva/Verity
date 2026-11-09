@@ -1,0 +1,2 @@
+Q1: What is computer networks?
+Ans: Computer network is a group of 2 or more digital devices connected together via cables.

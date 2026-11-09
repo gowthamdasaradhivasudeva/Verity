@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Resource Not Found · Verity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    <script>
+        (function() {
+            const theme = localStorage.getItem("verityTheme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+<body class="error-page">
+    <div class="error-container">
+        <div class="error-badge">STATUS 404 · FORENSIC ENGINE</div>
+        <h1>Analysis Record Not Found</h1>
+        <p>The requested endpoint, file, or report session could not be located in the local forensic store.</p>
+        <div class="error-actions">
+            <a href="/upload" class="primary-button">
+                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                    <path d="M16 10H4M9 5l-5 5 5 5"/>
+                </svg>
+                <span>Return to Verity Workspace</span>
+            </a>
+            <a href="/login" class="secondary-button">Examiner Sign In</a>
+        </div>
+    </div>
+</body>
+</html>

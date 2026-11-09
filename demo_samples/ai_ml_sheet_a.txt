@@ -1,0 +1,10 @@
+Q1: What is Artificial Intelligence ?
+Ans: Artificial intelligence is a branch of computer science that enables machines to perform tasks that normally require human intelligence.
+AI Systems can learn from data, recognize patterns, understand language, and make decisions.
+
+Q2: What is Machine learning ?
+Ans: Machine learning is a part of artificial intelligence. It allows computers to learn from data without being explicitly programmed for every task.
+There are 3 main types of ML :
+1. Supervised learning
+2. Unsupervised learning
+3. Reinforcement learning.

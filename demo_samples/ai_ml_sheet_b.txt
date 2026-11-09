@@ -1,0 +1,8 @@
+1Q) What is Artificial Intelligence?
+1Ans: Artificial Intelligence (AI) is a branch of computer science that enables machines to perform tasks that usually require human intelligence.
+It helps computers learn from data, identify patterns, understand human language and make decision.
+AI is used in applications such as virtual assistants, self-driving cars and face recognition systems.
+
+2Q) what is machine learning?
+2Ans: Machine learning (ML) is a subset of Artifical Intelligence (AI) that allows computers to learn from data and improve their performance without being explicitly programmed for every task.
+It uses algorithms to Identify patterns & make predictions based on given data.

@@ -1,0 +1,1124 @@
+/* ============================================================
+   VERITY — Forensic Similarity Report Stylesheet
+   ============================================================ */
+
+[hidden] {
+    display: none !important;
+}
+
+.report-page {
+    background: var(--bg);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+.report-container {
+    max-width: 1240px;
+    margin: 32px auto 48px;
+    padding: 0 32px;
+}
+
+.report-container > * {
+    animation: reportFadeIn 0.4s var(--ease);
+}
+
+@keyframes reportFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   1. REPORT HEADER
+   ============================================================ */
+.report-header {
+    padding: 36px 40px;
+    border-radius: var(--radius-xl);
+    color: #fff;
+    background: radial-gradient(1000px 400px at 100% 0%, rgba(13, 148, 136, 0.25), transparent 65%),
+                linear-gradient(135deg, var(--navy-950) 0%, var(--navy-900) 50%, var(--navy-850) 100%);
+    box-shadow: 0 16px 36px rgba(5, 8, 17, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.report-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.report-brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.report-brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.1);
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.report-brand {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+}
+
+.report-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.report-back-button, .report-print-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.report-back-button:hover, .report-print-button:hover {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.report-theme-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    transition: background var(--transition-fast);
+}
+
+.report-theme-btn:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
+.report-chip-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.report-status-chip {
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(45, 212, 191, 0.2);
+    color: #2dd4bf;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.report-security-chip {
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #cbd5e1;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.report-header h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.report-subtitle {
+    margin-bottom: 24px;
+    color: #94a3b8;
+    font-size: 14px;
+    max-width: 800px;
+}
+
+.report-metadata {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.meta-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+.meta-item strong {
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f8fafc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================================================
+   SHARED CARD LOOK & SECTION BADGES
+   ============================================================ */
+.student-comparison-card,
+.similarity-score-section,
+.document-comparison-section,
+.signoff-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.section-badge {
+    display: inline-block;
+    color: var(--primary);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+/* ============================================================
+   2. STUDENT COMPARISON CARD
+   ============================================================ */
+.student-comparison-card {
+    margin-top: 24px;
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    align-items: center;
+    gap: 24px;
+}
+
+.student-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+
+.student-avatar {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius-md);
+}
+
+.student-avatar svg {
+    width: 26px;
+    height: 26px;
+}
+
+.student-a .student-avatar {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.student-b .student-avatar {
+    background: var(--teal-light);
+    color: var(--teal);
+}
+
+.student-details {
+    min-width: 0;
+}
+
+.student-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    margin-bottom: 2px;
+}
+
+.student-tag.tag-b {
+    color: var(--teal);
+}
+
+.student-details h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.student-submeta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.student-word-count {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 11.5px;
+    font-weight: 600;
+}
+
+.student-vs {
+    width: 44px;
+    height: 44px;
+    justify-self: center;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--border-strong);
+    border-radius: 50%;
+    background: var(--surface-subtle);
+    color: var(--text-subtle);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+/* ============================================================
+   3. OVERALL SIMILARITY SCORE & GAUGE
+   ============================================================ */
+.similarity-score-section {
+    margin-top: 24px;
+    padding: 32px 36px;
+}
+
+.similarity-score-heading h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.similarity-score-heading p {
+    color: var(--text-muted);
+    font-size: 13.5px;
+    margin-top: 2px;
+}
+
+.similarity-gauge-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 64px;
+    padding: 32px 12px 10px;
+    flex-wrap: wrap;
+}
+
+.similarity-gauge {
+    width: 360px;
+    max-width: 100%;
+}
+
+.gauge-stage {
+    position: relative;
+}
+
+.gauge-stage svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+}
+
+.gauge-stage path {
+    fill: none;
+    stroke-width: 26;
+    stroke-linecap: round;
+}
+
+.gauge-stage .trk-low  { stroke: #e2e8f0; }
+.gauge-stage .trk-mid  { stroke: #fed7aa; }
+.gauge-stage .trk-high { stroke: #fecaca; }
+
+[data-theme="dark"] .gauge-stage .trk-low  { stroke: #1e293b; }
+[data-theme="dark"] .gauge-stage .trk-mid  { stroke: #451a03; }
+[data-theme="dark"] .gauge-stage .trk-high { stroke: #450a0a; }
+
+.gauge-stage .fil-low  { stroke: var(--success); }
+.gauge-stage .fil-mid  { stroke: var(--warning); }
+.gauge-stage .fil-high { stroke: var(--danger); }
+
+#gaugeKnob {
+    fill: #fff;
+    stroke: var(--navy-900);
+    stroke-width: 4;
+    opacity: 0;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+    transition: opacity 0.3s var(--ease);
+}
+
+.gauge-stage text {
+    font-size: 12px;
+    font-weight: 600;
+    fill: var(--text-subtle);
+    text-anchor: middle;
+}
+
+.gauge-center {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 18%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.gauge-center span {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--text-main);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+}
+
+.gauge-center small {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--text-subtle);
+}
+
+.gauge-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+    margin-top: 18px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.gauge-legend i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+
+.gauge-legend .lg-low  { background: var(--success); }
+.gauge-legend .lg-mid  { background: var(--warning); }
+.gauge-legend .lg-high { background: var(--danger); }
+
+.similarity-score-description {
+    max-width: 380px;
+    flex: 1;
+}
+
+.assessment-card {
+    padding: 24px;
+    border-radius: var(--radius-md);
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+}
+
+.assessment-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-subtle);
+}
+
+.assessment-card h3 {
+    margin: 6px 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.assessment-card p {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.assessment-footer-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 11px;
+    color: var(--text-subtle);
+}
+
+.note-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   4. FULL DOCUMENT COMPARISON
+   ============================================================ */
+.document-comparison-section {
+    margin-top: 24px;
+    padding: 32px 36px;
+}
+
+.comparison-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.comparison-heading h2 {
+    margin: 2px 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
+}
+
+.comparison-heading p {
+    color: var(--text-muted);
+    font-size: 13.5px;
+}
+
+.comparison-badge {
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: #fef08a;
+    border: 1px solid #fde047;
+    color: #713f12;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+[data-theme="dark"] .comparison-badge {
+    background: #422006;
+    border-color: #713f12;
+    color: #fef08a;
+}
+
+.comparison-columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+    align-items: start;
+}
+
+.comparison-column {
+    min-width: 0;
+}
+
+.col-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.col-indicator-a, .col-indicator-b {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}
+
+.col-indicator-a { background: var(--primary); }
+.col-indicator-b { background: var(--teal); }
+
+.comparison-column h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--text-main);
+}
+
+.col-badge {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--text-subtle);
+    font-weight: 500;
+}
+
+.document-text {
+    min-height: 280px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    color: var(--text-main);
+    font-size: 14.5px;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.col-a .document-text {
+    border-top: 3px solid var(--primary);
+}
+
+.col-b .document-text {
+    border-top: 3px solid var(--teal);
+}
+
+/* Verbatim Run Highlighting */
+.match-highlight-a, .match-highlight-b {
+    padding: 2px 4px;
+    border-radius: 3px;
+    background: #fde047;
+    color: #361b00;
+    font-weight: 600;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+[data-theme="dark"] .match-highlight-a,
+[data-theme="dark"] .match-highlight-b {
+    background: #854d0e;
+    color: #fef9c3;
+}
+
+/* Structured Exam Answers */
+.structured-answer {
+    line-height: 1.85;
+}
+
+.structured-answer p {
+    margin: 0 0 12px;
+}
+
+.structured-answer .question-heading {
+    margin: 18px 0 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 4px;
+}
+
+.structured-answer .answer-text {
+    margin: 0 0 18px;
+    padding-left: 10px;
+    border-left: 2px solid var(--border);
+}
+
+.structured-answer .answer-text strong {
+    color: var(--text-muted);
+}
+
+/* ============================================================
+   5. COMBINED DARK CARD (OVERALL SCORE & BREAKDOWN)
+   ============================================================ */
+.analysis-overview {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+}
+
+.analysis-combined-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    background: linear-gradient(145deg, #090e1a 0%, #0d1527 100%);
+    color: #f8fafc;
+    border: 1px solid #1e293b;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: 0 16px 36px rgba(5, 8, 17, 0.35);
+}
+
+.analysis-left,
+.analysis-right {
+    min-width: 0;
+    padding: 36px 40px;
+}
+
+.analysis-left {
+    border-right: 1px solid #1e293b;
+}
+
+.card-eyebrow-dark {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.analysis-combined-card h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+}
+
+.overall-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin: 10px 0;
+}
+
+.overall-score {
+    color: #818cf8;
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.overall-score-symbol {
+    font-size: 24px;
+    font-weight: 700;
+    color: #64748b;
+}
+
+.progress-track,
+.metric-track {
+    height: 8px;
+    width: 100%;
+    background: #1e293b;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 14px 0 20px;
+}
+
+.progress-fill,
+.metric-fill {
+    height: 100%;
+    width: 0;
+    border-radius: 10px;
+    transition: width 1s var(--ease);
+}
+
+.progress-fill {
+    background: #6366f1;
+}
+
+.decision-details {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #1e293b;
+}
+
+.decision-details h3 {
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#finalDecision {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+}
+
+#finalDecision.high { color: #f87171; }
+#finalDecision.medium { color: #fbbf24; }
+#finalDecision.low { color: #34d399; }
+
+.decision-details small {
+    display: block;
+    color: #64748b;
+    font-size: 11.5px;
+    line-height: 1.5;
+}
+
+/* Similarity Breakdown Rows */
+.metric-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 22px;
+}
+
+.metric-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #cbd5e1;
+}
+
+.metric-title {
+    font-weight: 500;
+}
+
+.metric-val {
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+}
+
+#cosineBar { background: #38bdf8; }
+#ngramBar { background: #a78bfa; }
+#phraseBar { background: #2dd4bf; }
+
+/* ============================================================
+   6. EXAMINER REVIEW & SIGN-OFF STRIP
+   ============================================================ */
+.signoff-section {
+    width: 100%;
+    margin-top: 24px;
+    padding: 30px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.signoff-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+}
+
+.signoff-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.signoff-note {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.signoff-remarks label,
+.signoff-field label {
+    display: block;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.signoff-input {
+    display: block;
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    outline: none;
+    background: var(--surface);
+    color: var(--text-main);
+    font-size: 13px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.signoff-input:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px var(--teal-subtle);
+}
+
+.remarks-input {
+    min-height: 68px;
+    resize: vertical;
+}
+
+.signoff-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.2fr;
+    gap: 24px;
+    align-items: end;
+}
+
+.sign-line {
+    height: 42px;
+    border-bottom: 1.5px solid var(--text-main);
+    margin-bottom: 6px;
+}
+
+/* ============================================================
+   7. DISCLAIMER FOOTER & EMPTY STATE
+   ============================================================ */
+.report-footer-disclaimer {
+    margin-top: 28px;
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.65;
+    text-align: center;
+}
+
+.disclaimer-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+
+.report-footer-disclaimer strong {
+    color: var(--text-main);
+}
+
+.report-section {
+    padding: 48px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    text-align: center;
+    max-width: 540px;
+    margin: 64px auto;
+}
+
+.report-section h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.report-section p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+}
+
+.report-section button {
+    padding: 10px 20px;
+    border-radius: var(--radius-sm);
+    background: var(--primary);
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 992px) {
+    .report-metadata { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .analysis-combined-card { grid-template-columns: 1fr; }
+    .analysis-left { border-right: none; border-bottom: 1px solid #1e293b; }
+    .signoff-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .report-container { padding: 0 16px; margin: 16px auto; }
+    .report-header { padding: 24px 20px; }
+    .report-header h1 { font-size: 22px; }
+    .student-comparison-card { grid-template-columns: 1fr; gap: 16px; padding: 20px; }
+    .student-vs { justify-self: center; }
+    .comparison-columns { grid-template-columns: 1fr; }
+    .document-comparison-section, .similarity-score-section { padding: 20px; }
+    .similarity-gauge-container { gap: 24px; }
+    .signoff-grid { grid-template-columns: 1fr; }
+    .signoff-section { padding: 20px; }
+    .report-header-actions { width: 100%; justify-content: flex-start; }
+    .report-back-button, .report-print-button { flex: 1; }
+}
+
+/* ============================================================
+   PRINT STYLES (@media print)
+   ============================================================ */
+@media print {
+    @page {
+        margin: 12mm 15mm;
+        size: auto;
+    }
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        animation: none !important;
+        transition: none !important;
+        box-shadow: none !important;
+    }
+
+    body, .report-page {
+        background: #fff !important;
+        color: #0f172a !important;
+    }
+
+    .report-container {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Hide Controls */
+    .no-print,
+    .report-header-actions,
+    .report-theme-btn,
+    .report-back-button,
+    .report-print-button {
+        display: none !important;
+    }
+
+    /* Prevent awkward page cuts */
+    .report-header,
+    .student-comparison-card,
+    .similarity-score-section,
+    .analysis-combined-card,
+    .signoff-section,
+    .report-footer-disclaimer {
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+    }
+
+    .document-comparison-section {
+        break-inside: auto !important;
+    }
+
+    .report-header {
+        background: #090e1a !important;
+        color: #fff !important;
+        padding: 24px 30px !important;
+        border-radius: 10px !important;
+    }
+
+    .report-header h1 {
+        color: #fff !important;
+        font-size: 22px !important;
+    }
+
+    .meta-item strong {
+        color: #fff !important;
+    }
+
+    .student-comparison-card,
+    .similarity-score-section,
+    .document-comparison-section,
+    .signoff-section {
+        border: 1px solid #cbd5e1 !important;
+        border-radius: 10px !important;
+    }
+
+    .document-text {
+        font-size: 11.5px !important;
+        line-height: 1.65 !important;
+        border: 1px solid #cbd5e1 !important;
+    }
+
+    /* Ensure highlights are preserved on print */
+    .match-highlight-a, .match-highlight-b {
+        background: #fef08a !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+    }
+
+    /* Preserve Combined Dark Card in print */
+    .analysis-combined-card {
+        background: #090e1a !important;
+        color: #fff !important;
+        border: 1px solid #1e293b !important;
+        margin-top: 16px !important;
+    }
+
+    .analysis-left, .analysis-right {
+        padding: 24px 28px !important;
+    }
+
+    .analysis-combined-card h2,
+    .overall-score,
+    .metric-val {
+        color: #fff !important;
+    }
+
+    .progress-track, .metric-track {
+        background: #1e293b !important;
+    }
+
+    .signoff-section {
+        padding: 20px 24px !important;
+        margin-top: 16px !important;
+    }
+
+    .signoff-input {
+        border: 1px solid #94a3b8 !important;
+        background: #fff !important;
+    }
+
+    .sign-line {
+        border-bottom: 1.5px solid #000 !important;
+    }
+}
+
+/* Similarity progress bar hover effects */
+
+.metric-row {
+    cursor: pointer;
+}
+
+.metric-track {
+    cursor: pointer;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.metric-fill {
+    transition: filter 0.3s ease, transform 0.3s ease;
+    transform-origin: left center;
+}
+
+.metric-row:hover .metric-track {
+    background: #35445d;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+
+.metric-row:hover .metric-fill {
+    filter: brightness(1.3) drop-shadow(0 0 5px currentColor);
+    transform: scaleY(1.3);
+}
+
+.metric-row:hover .metric-val {
+    color: #67e8f9;
+    transition: color 0.3s ease;
+}

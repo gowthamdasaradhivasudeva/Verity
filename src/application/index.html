@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verity | Examiner Forensic Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+    
+    <!-- Auth Guard & Theme Pre-init -->
+    <script>
+        (function() {
+            // Safe guard: check session authentication
+            if (!sessionStorage.getItem("verityUser")) {
+                window.location.replace("/login");
+                return;
+            }
+            // Theme initialization
+            const theme = localStorage.getItem("verityTheme") || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+            document.documentElement.setAttribute("data-theme", theme);
+        })();
+    </script>
+</head>
+<body class="workspace-page">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 32 32" fill="none" class="brand-svg-sidebar">
+                    <path d="M6 8L16 26L26 8" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 8L16 16L20 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+                    <circle cx="16" cy="18" r="2.5" fill="var(--teal)"/>
+                </svg>
+            </div>
+            <div class="brand-text">
+                <strong>VERITY</strong>
+                <span>EXAM INTELLIGENCE</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section-label">FORENSIC SUITE</div>
+            
+            <button type="button" class="nav-item active" aria-current="page">
+                <span class="nav-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M4 4h12v12H4zM4 9h12M9 4v12" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span>Answer Sheet Analysis</span>
+                <span class="nav-chip">Active</span>
+            </button>
+
+            <button type="button" class="nav-item nav-item-disabled" title="Multi-candidate matrix analysis (Enterprise)">
+                <span class="nav-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="6" cy="6" r="3"/>
+                        <circle cx="14" cy="14" r="3"/>
+                        <path d="M12 8l-4 4"/>
+                    </svg>
+                </span>
+                <span>Cohort Matrix View</span>
+                <span class="nav-chip-muted">v3.0</span>
+            </button>
+
+            <button type="button" class="nav-item" id="openChangePasswordBtn">
+                <span class="nav-icon" aria-hidden="true">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <rect x="4" y="9" width="12" height="8" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M7 9V6a3 3 0 016 0v3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span>Change Password</span>
+            </button>
+
+            <div class="nav-section-label" style="margin-top: 18px;">STANDARDS</div>
+            
+            <div class="sidebar-compliance-card">
+                <div class="compliance-badge">AUDIT READY</div>
+                <div class="compliance-title">Deterministic Engine</div>
+                <div class="compliance-desc">Sentence matching threshold: 20% · Trigram window: 3 · Verbatim run: 4 tokens</div>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="system-status">
+                <span class="status-dot pulse"></span>
+                <div class="system-status-text">
+                    <strong>OCR &amp; NLP Engine Online</strong>
+                    <span>Local Air-Gapped Host</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <!-- TOPBAR -->
+        <header class="topbar">
+            <div class="breadcrumb">
+                <span class="breadcrumb-item">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" class="breadcrumb-home">
+                        <path d="M2.5 6.5L8 2l5.5 4.5v7.5a1 1 0 01-1 1h-9a1 1 0 01-1-1v-7.5z"/>
+                    </svg>
+                    Workspace
+                </span>
+                <span class="breadcrumb-separator">/</span>
+                <strong class="breadcrumb-current">Answer Sheet Pair Analysis</strong>
+            </div>
+
+            <div class="topbar-actions">
+                <!-- Theme Toggle Button -->
+                <button type="button" class="action-icon-btn" id="themeToggleBtn" aria-label="Toggle visual theme" title="Toggle dark/light theme">
+                    <svg class="sun-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="10" cy="10" r="4"/>
+                        <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.22 4.22l1.42 1.42M14.36 14.36l1.42 1.42M4.22 15.78l1.42-1.42M14.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                    </svg>
+                </button>
+
+                <div class="topbar-divider"></div>
+
+                <!-- Live Workspace Status -->
+                <div class="topbar-status">
+                    <span class="status-dot"></span>
+                    <span id="topbarEngineStatus">Forensic session active</span>
+                </div>
+
+                <div class="topbar-divider"></div>
+
+                <!-- Examiner Profile & Sign Out Menu -->
+                <div class="user-profile-menu">
+                    <div class="user-avatar" id="userAvatar">EX</div>
+                    <div class="user-info">
+                        <span class="user-name" id="userNameDisplay">Lead Examiner</span>
+                        <span class="user-role" id="userEmailDisplay">examiner@verity.ac.uk</span>
+                    </div>
+                    <button type="button" class="sign-out-btn" id="signOutBtn" title="Sign out of Verity" aria-label="Sign out">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M7 16l-4-4m0 0l4-4m-4 4h11m-4 5v1a2 2 0 002 2h3a2 2 0 002-2V4a2 2 0 00-2-2h-3a2 2 0 00-2 2v1"/>
+                        </svg>
+                        <span>Sign Out</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE HERO HEADER -->
+        <section class="page-header">
+            <div class="page-header-lead">
+                <div class="eyebrow-container">
+                    <span class="eyebrow">PAIRWISE FORENSIC ANALYSIS</span>
+                    <span class="header-chip">Deterministic 1-to-1</span>
+                </div>
+                <h1>Answer Sheet Similarity Analysis</h1>
+                <p>
+                    Digitize and compare two physical or digital candidate answer sheets. Evaluates lexical TF-IDF cosine similarity, trigram overlaps, and consecutive verbatim phrasing with automated question prompt filtering.
+                </p>
+            </div>
+        </section>
+
+        <!-- PROGRESS STEPPER (Driven by existing DOM stats #uploadedStat & #reviewedStat) -->
+        <section class="forensic-stepper-container" aria-label="Analysis Pipeline Steps">
+            <div class="stepper-track">
+                <!-- STEP 1: UPLOAD -->
+                <div class="stepper-step" id="step1Item">
+                    <div class="step-indicator">
+                        <span class="step-num">1</span>
+                        <svg class="step-check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M3.5 8.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-label">STEP 01</div>
+                        <div class="step-title">Upload Answer Sheets</div>
+                        <div class="step-stat-badge">
+                            <span id="uploadedStat" class="tabular-num">00</span>
+                            <span class="stat-denominator">/ 02 files</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stepper-connector" id="connector1"></div>
+
+                <!-- STEP 2: EXTRACT -->
+                <div class="stepper-step" id="step2Item">
+                    <div class="step-indicator">
+                        <span class="step-num">2</span>
+                        <svg class="step-check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M3.5 8.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-label">STEP 02</div>
+                        <div class="step-title">OCR Text Extraction</div>
+                        <div class="step-stat-badge">
+                            <span id="reviewedStat" class="tabular-num">00</span>
+                            <span class="stat-denominator">/ 02 parsed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stepper-connector" id="connector2"></div>
+
+                <!-- STEP 3: ANALYZE -->
+                <div class="stepper-step" id="step3Item">
+                    <div class="step-indicator">
+                        <span class="step-num">3</span>
+                        <svg class="step-check-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <path d="M3.5 8.5l3 3 6-7" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="step-content">
+                        <div class="step-label">STEP 03</div>
+                        <div class="step-title">Forensic Similarity</div>
+                        <div class="step-stat-badge">
+                            <span id="step3StatusBadge">Ready</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MAIN SIMILARITY MODULE -->
+        <section class="similarity-panel" id="similarityModule">
+            <div class="panel-header similarity-panel-header">
+                <div>
+                    <div class="panel-eyebrow">MODULE 1 · INPUT &amp; EXTRACTION</div>
+                    <h2>Answer Sheet Inputs</h2>
+                    <p class="similarity-intro">
+                        Upload two answer sheet images (handwritten or typed). The system performs local OCR extraction and prepares both texts for pairwise semantic and n-gram comparison.
+                    </p>
+                </div>
+                <div class="panel-badges">
+                    <span class="module-chip">
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" class="chip-svg">
+                            <path d="M2 3h10v8H2zM2 7h10M6 3v8"/>
+                        </svg>
+                        Pairwise Strict
+                    </span>
+                </div>
+            </div>
+
+            <!-- COMPARISON UPLOAD GRID -->
+            <div class="comparison-upload-grid">
+                <!-- ANSWER SHEET A -->
+                <article class="comparison-upload-card" id="cardA">
+                    <div class="comparison-card-top">
+                        <span class="sheet-number">A</span>
+                        <div class="card-meta">
+                            <h3>Answer Sheet A</h3>
+                            <p>First candidate paper</p>
+                        </div>
+                        <div class="card-file-actions" id="cardActionsA" hidden>
+                            <button type="button" class="card-action-btn" id="replaceFileA" title="Replace file">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M1 8a7 7 0 0113-3.5L15 6M15 1v5h-5M15 8a7 7 0 01-13 3.5L1 10M1 15v-5h5"/>
+                                </svg>
+                                <span>Replace</span>
+                            </button>
+                            <button type="button" class="card-action-btn danger" id="removeFileA" title="Remove file">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 4h10M6 4V2.5A1.5 1.5 0 017.5 1h1A1.5 1.5 0 0110 2.5V4M4 4l.8 9.5a1.5 1.5 0 001.5 1.5h3.4a1.5 1.5 0 001.5-1.5L12 4M6.5 7v5M9.5 7v5"/>
+                                </svg>
+                                <span>Remove</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DROPZONE -->
+                    <label class="comparison-dropzone" for="similarityFile1" id="dropzone1">
+                        <span class="comparison-upload-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 12v9m0-9l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <strong id="similarityName1">Choose first image</strong>
+                        <span class="dropzone-hint">Drag &amp; drop student sheet or click to browse (JPG, PNG, WebP)</span>
+                    </label>
+
+                    <input type="file" id="similarityFile1" accept="image/*" hidden>
+
+                    <!-- IMAGE PREVIEW -->
+                    <div class="preview-wrapper">
+                        <img class="comparison-preview" id="similarityPreview1" alt="Preview of Answer Sheet A" hidden>
+                    </div>
+
+                    <!-- OCR TEXT AREA -->
+                    <div class="comparison-ocr">
+                        <div class="ocr-label-row">
+                            <label for="similarityText1">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="ocr-icon">
+                                    <path d="M2.5 3h11M4 6.5h8M5.5 10h5M7 13.5h2"/>
+                                </svg>
+                                Extracted Text — Candidate A
+                            </label>
+                            <span class="char-count-badge" id="countBadgeA">0 words</span>
+                        </div>
+                        <textarea id="similarityText1" readonly placeholder="Extracted text from Sheet A will appear here after OCR or sample load..."></textarea>
+                    </div>
+                </article>
+
+                <!-- ANSWER SHEET B -->
+                <article class="comparison-upload-card" id="cardB">
+                    <div class="comparison-card-top">
+                        <span class="sheet-number sheet-number-b">B</span>
+                        <div class="card-meta">
+                            <h3>Answer Sheet B</h3>
+                            <p>Second candidate paper</p>
+                        </div>
+                        <div class="card-file-actions" id="cardActionsB" hidden>
+                            <button type="button" class="card-action-btn" id="replaceFileB" title="Replace file">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M1 8a7 7 0 0113-3.5L15 6M15 1v5h-5M15 8a7 7 0 01-13 3.5L1 10M1 15v-5h5"/>
+                                </svg>
+                                <span>Replace</span>
+                            </button>
+                            <button type="button" class="card-action-btn danger" id="removeFileB" title="Remove file">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 4h10M6 4V2.5A1.5 1.5 0 017.5 1h1A1.5 1.5 0 0110 2.5V4M4 4l.8 9.5a1.5 1.5 0 001.5 1.5h3.4a1.5 1.5 0 001.5-1.5L12 4M6.5 7v5M9.5 7v5"/>
+                                </svg>
+                                <span>Remove</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- DROPZONE -->
+                    <label class="comparison-dropzone" for="similarityFile2" id="dropzone2">
+                        <span class="comparison-upload-icon comparison-upload-icon-b" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M12 12v9m0-9l-3 3m3-3l3 3" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <strong id="similarityName2">Choose second image</strong>
+                        <span class="dropzone-hint">Drag &amp; drop student sheet or click to browse (JPG, PNG, WebP)</span>
+                    </label>
+
+                    <input type="file" id="similarityFile2" accept="image/*" hidden>
+
+                    <!-- IMAGE PREVIEW -->
+                    <div class="preview-wrapper">
+                        <img class="comparison-preview" id="similarityPreview2" alt="Preview of Answer Sheet B" hidden>
+                    </div>
+
+                    <!-- OCR TEXT AREA -->
+                    <div class="comparison-ocr">
+                        <div class="ocr-label-row">
+                            <label for="similarityText2">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="ocr-icon">
+                                    <path d="M2.5 3h11M4 6.5h8M5.5 10h5M7 13.5h2"/>
+                                </svg>
+                                Extracted Text — Candidate B
+                            </label>
+                            <span class="char-count-badge" id="countBadgeB">0 words</span>
+                        </div>
+                        <textarea id="similarityText2" readonly placeholder="Extracted text from Sheet B will appear here after OCR or sample load..."></textarea>
+                    </div>
+                </article>
+            </div>
+
+            <!-- DEMO SAMPLE PRESETS -->
+            <section class="demo-presets">
+                <div class="demo-presets-heading">
+                    <div class="demo-heading-left">
+                        <span class="panel-eyebrow">FAST EVALUATION PRESETS</span>
+                        <h3>Try a Standardized Comparison Scenario</h3>
+                        <p>Load pre-extracted exam pairs instantly to evaluate the forensic engine without running manual OCR.</p>
+                    </div>
+                    <span class="demo-chip">Instant Preload</span>
+                </div>
+
+                <div class="demo-preset-cards">
+                    <div class="demo-scenario-card" id="demoCardAiMl">
+                        <div class="scenario-meta">
+                            <span class="scenario-tag tag-warning">Paraphrased Malpractice</span>
+                            <h4>Artificial Intelligence &amp; Machine Learning</h4>
+                            <p>Pairs with heavy lexical overlap, paraphrased definitions, and shared sentence structures.</p>
+                        </div>
+                        <button type="button" class="secondary-button demo-btn" id="loadAiMlSample">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                                <path d="M2 3h12v10H2zM5 7h6M5 10h4"/>
+                            </svg>
+                            <span>Load AI &amp; ML Pair</span>
+                        </button>
+                    </div>
+
+                    <div class="demo-scenario-card" id="demoCardNetworks">
+                        <div class="scenario-meta">
+                            <span class="scenario-tag tag-success">Clean Baseline</span>
+                            <h4>Computer Networks</h4>
+                            <p>Authentic independent answer sheets addressing distinct protocol topologies with low lexical correlation.</p>
+                        </div>
+                        <button type="button" class="secondary-button demo-btn" id="loadNetworksSample">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                                <path d="M2 3h12v10H2zM5 7h6M5 10h4"/>
+                            </svg>
+                            <span>Load Networks Pair</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ACTION BAR -->
+            <div class="comparison-actions">
+                <div class="status-indicator-box">
+                    <div class="status-badge-icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="8" cy="8" r="6"/>
+                            <path d="M8 5v3M8 11h.01"/>
+                        </svg>
+                    </div>
+                    <p id="similarityStatus" class="similarity-status" role="status">Select both answer-sheet images or load a sample scenario to begin.</p>
+                </div>
+
+                <div class="comparison-buttons">
+                    <button type="button" class="secondary-button action-btn" id="extractBothButton" disabled>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                            <path d="M3 3h10v10H3zM5 6h6M5 9h4M5 12h2"/>
+                        </svg>
+                        <span>Extract Text</span>
+                    </button>
+                    <button type="button" class="primary-button action-btn" id="analyzeSimilarityButton" disabled>
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                            <path d="M8 1v14M1 8h14M3 3l10 10M13 3L3 13" stroke-linecap="round"/>
+                        </svg>
+                        <span>Analyze Similarity</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- ANALYSIS RESULTS -->
+            <section class="similarity-results" id="similarityResults" hidden aria-live="polite">
+                <div class="results-heading">
+                    <div>
+                        <div class="panel-eyebrow">MODULE 2 · FORENSIC EVALUATION</div>
+                        <h3>Pairwise Comparative Similarity Results</h3>
+                    </div>
+                    <span class="module-chip chip-highlight">Verified Score</span>
+                </div>
+
+                <!-- MAIN SCORE HERO CARD -->
+                <div class="similarity-score-card">
+                    <div class="score-card-main">
+                        <span class="stat-label">OVERALL PAPER SIMILARITY (TF-IDF &amp; COSINE)</span>
+                        <div class="score-display-row">
+                            <div class="similarity-score" id="similarityScore">—</div>
+                            <div class="score-symbol" aria-hidden="true">%</div>
+                            <div class="score-decision-pill" id="scoreDecisionPill">
+                                <span class="pill-dot"></span>
+                                <span id="scoreDecisionText">Awaiting calculation</span>
+                            </div>
+                        </div>
+                        <p id="similarityInterpretation">Run the analysis to view the result.</p>
+                    </div>
+
+                    <div class="score-card-thresholds">
+                        <div class="threshold-item">
+                            <span class="badge-dot dot-danger"></span>
+                            <span>&ge; 80%: Likely Malpractice</span>
+                        </div>
+                        <div class="threshold-item">
+                            <span class="badge-dot dot-warning"></span>
+                            <span>50% – 79%: Human Review Required</span>
+                        </div>
+                        <div class="threshold-item">
+                            <span class="badge-dot dot-success"></span>
+                            <span>&lt; 50%: Not Likely Malpractice</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EVIDENCE CARD -->
+                <div class="evidence-card">
+                    <div class="evidence-header">
+                        <div class="evidence-icon" aria-hidden="true">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M2 2h12v12H2zM5 5h6M5 8h6M5 11h4"/>
+                            </svg>
+                        </div>
+                        <h4>Sentence-Level Matching Evidence</h4>
+                    </div>
+                    <p id="similarityEvidence">Sentence matching details will appear here.</p>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="report-actions">
+                    <button type="button" class="primary-button report-cta" id="viewReportButton">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" class="btn-icon">
+                            <path d="M1 8s3-5 7-5 7 5 7 5-3 5-7 5-7-5-7-5z"/>
+                            <circle cx="8" cy="8" r="2.5"/>
+                        </svg>
+                        <span>View Detailed Forensic Report</span>
+                    </button>
+                    <button type="button" class="secondary-button" id="downloadReportButton">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="btn-icon">
+                            <path d="M8 2v9m0 0l-3-3m3 3l3-3M2 14h12" stroke-linecap="round"/>
+                        </svg>
+                        <span>Download Report</span>
+                    </button>
+                </div>
+
+                <!-- COLLAPSIBLE ANALYSIS OUTPUT -->
+                <details class="raw-analysis">
+                    <summary>
+                        <span class="summary-title">
+                            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" class="summary-icon">
+                                <path d="M4 6l4 4 4-4"/>
+                            </svg>
+                            View Raw Forensic Log &amp; Matrix Output
+                        </span>
+                        <span class="summary-badge">Audit Terminal</span>
+                    </summary>
+                    <div class="terminal-container">
+                        <pre id="similarityOutput"></pre>
+                    </div>
+                </details>
+
+                <p class="review-disclaimer">
+                    <strong>Forensic Notice:</strong> Similarity scores and phrase matching metrics are indicators generated to assist qualified human examiners. They do not constitute unilateral legal or institutional proof of academic malpractice. Always inspect the original handwritten scripts, layout structures, and exam hall seating configurations before reaching formal determinations.
+                </p>
+            </section>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="page-footer">
+            <div class="footer-left">
+                <span class="footer-brand">VERITY Forensic Intelligence</span>
+                <span class="footer-separator">·</span>
+                <span>Version 2.4.0 (Enterprise Build)</span>
+            </div>
+            <div class="footer-right">
+                <span>Deterministic Pairwise Verification</span>
+                <span class="footer-separator">·</span>
+                <a href="/login" class="footer-link">Examiner Portal</a>
+            </div>
+        </footer>
+    </main>
+
+    <!-- CHANGE PASSWORD MODAL -->
+    <div id="changePasswordModal" class="modal-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="changePasswordTitle">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <div>
+                    <h3 id="changePasswordTitle" class="modal-title">Change Password</h3>
+                    <p class="modal-subtitle">Update your credentials for the examiner portal.</p>
+                </div>
+                <button type="button" class="modal-close-btn" id="closeChangePasswordBtn" aria-label="Close dialog">
+                    <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M5 5l10 10M15 5L5 15"/>
+                    </svg>
+                </button>
+            </div>
+            <form id="changePasswordForm" class="modal-form" novalidate>
+                <div class="modal-body">
+                    <div id="changePasswordError" class="modal-error-alert" hidden role="alert">
+                        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" class="alert-icon">
+                            <circle cx="10" cy="10" r="8"/>
+                            <path d="M10 6v5M10 14h.01" stroke-linecap="round"/>
+                        </svg>
+                        <span id="changePasswordErrorText"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="4" y="9" width="12" height="8" rx="2"/>
+                                    <path d="M7 9V6a3 3 0 016 0v3"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="currentPassword" name="currentPassword" placeholder="••••••••••••" required autocomplete="current-password">
+                            <button type="button" class="pwd-toggle-btn" data-target="currentPassword" aria-label="Show password" title="Show or hide password">
+                                <svg class="eye-show" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                                <svg class="eye-hide" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 3l14 14M10 5c3.5 0 6.5 2.5 8 5-.6 1-1.4 2-2.3 2.8M6.5 6.6C5 7.6 3.8 9 3 10c1.5 2.5 4.5 5 7 5 1.4 0 2.8-.5 4-1.3"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="4" y="9" width="12" height="8" rx="2"/>
+                                    <path d="M7 9V6a3 3 0 016 0v3"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="newPassword" name="newPassword" placeholder="••••••••••••" required autocomplete="new-password">
+                            <button type="button" class="pwd-toggle-btn" data-target="newPassword" aria-label="Show password" title="Show or hide password">
+                                <svg class="eye-show" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                                <svg class="eye-hide" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 3l14 14M10 5c3.5 0 6.5 2.5 8 5-.6 1-1.4 2-2.3 2.8M6.5 6.6C5 7.6 3.8 9 3 10c1.5 2.5 4.5 5 7 5 1.4 0 2.8-.5 4-1.3"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="input-hint">At least 8 characters with at least one letter and one number</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm New Password</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon" aria-hidden="true">
+                                <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <rect x="4" y="9" width="12" height="8" rx="2"/>
+                                    <path d="M7 9V6a3 3 0 016 0v3"/>
+                                </svg>
+                            </span>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="••••••••••••" required autocomplete="new-password">
+                            <button type="button" class="pwd-toggle-btn" data-target="confirmPassword" aria-label="Show password" title="Show or hide password">
+                                <svg class="eye-show" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M10 3C5 3 1.73 7.11 1 10c.73 2.89 4 7 9 7s8.27-4.11 9-7c-.73-2.89-4-7-9-7z"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                                <svg class="eye-hide" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M3 3l14 14M10 5c3.5 0 6.5 2.5 8 5-.6 1-1.4 2-2.3 2.8M6.5 6.6C5 7.6 3.8 9 3 10c1.5 2.5 4.5 5 7 5 1.4 0 2.8-.5 4-1.3"/>
+                                    <circle cx="10" cy="10" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="secondary-button" id="cancelChangePasswordBtn">Cancel</button>
+                    <button type="submit" class="primary-button" id="submitChangePasswordBtn">Save New Password</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <!-- SCRIPTS -->
+    <script src="/app.js"></script>
+    <script src="/ui.js"></script>
+    <script src="/auth-modal.js"></script>
+</body>
+</html>
